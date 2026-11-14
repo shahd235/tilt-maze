@@ -13,9 +13,8 @@ Every message is one line of plain text with no spaces, ends with a newline, and
 | Remote to laptop | `RREADY` | Power up | Remote booted |
 | Remote to laptop | `BTN` | Button pressed | Blocker wants to open the trapdoor |
 | Laptop to maze | `DROP` | Laptop accepts a BTN | Open the trapdoor now |
-| Laptop to maze | `BEEP,n` | Game event | Maze buzzer pattern n (1 checkpoint, 2 goal, 3 trap) |
 | Laptop to remote | `LED,GREEN` / `LED,RED` / `LED,BLUE` | State change | Green = trap ready, red = cooldown, blue = idle |
-| Laptop to remote | `BUZZ,n` | Game event | Remote buzzer pattern n (1 trap fired, 2 cooldown over, 3 round over) |
+| Laptop to remote | `BUZZ,n` | Game event | Remote buzzer pattern n (1 trap fired, 2 cooldown over, 3 round over, 4 checkpoint reached, 5 goal reached) |
 
 ## Pin map (proposed)
 
