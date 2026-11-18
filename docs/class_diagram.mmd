@@ -1,0 +1,71 @@
+classDiagram
+    direction LR
+    class Link {
+        <<interface>>
+        +send(line)
+        +setLineListener(listener)
+        +close()
+        +describe()
+    }
+    class SerialLink {
+        -SerialPort port
+        +listPorts()
+    }
+    class LoopbackLink {
+        +sent
+        +inject(line)
+    }
+    class Game {
+        -GameState state
+        -Link link
+        +handleLine(line)
+        +tick()
+        +startRound()
+        +stopRound()
+        +addListener(l)
+        +score()
+        +secondsLeft()
+    }
+    class GameState {
+        <<interface>>
+        +name()
+        +onMessage(game, message)
+        +onTick(game)
+    }
+    class IdleState
+    class RunningState
+    class FinishedState
+    class GameListener {
+        <<interface>>
+        +onUpdate(game)
+        +onLog(text)
+    }
+    class GamePanel {
+        +use(link)
+        +refresh(game)
+    }
+    class Message {
+        +Type type
+        +int x
+        +int y
+        +parse(line)
+    }
+    class Config {
+        +ROUND_SECONDS
+        +COOLDOWN_SECONDS
+        +DROP_PENALTY_SECONDS
+    }
+    class Main
+    Link <|.. SerialLink
+    Link <|.. LoopbackLink
+    GameState <|.. IdleState
+    GameState <|.. RunningState
+    GameState <|.. FinishedState
+    GameListener <|.. GamePanel
+    Game --> Link : sends commands
+    Game o--> GameState : current state
+    Game o--> GameListener : notifies
+    Game ..> Message : parses
+    RunningState ..> Config
+    Main --> GamePanel
+    GamePanel --> Game
