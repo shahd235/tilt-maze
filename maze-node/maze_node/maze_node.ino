@@ -54,9 +54,9 @@ const unsigned long LOCKOUT_MS    = 500;   // ignore a sensor for a moment after
 // Trapdoor (continuous servo): copy the values found with test 06.
 const int STOP_VALUE = 90;          // servo value where it does not move
 const int SPEED      = 40;          // how far from stop to turn
-const int OPEN_MS    = 400;         // how long the door moves
-const int HOLD_MS    = 1000;        // how long the door stays open
-
+const int OPEN_MS    = 200;         // how long the door moves
+const int HOLD_MS    = 1500;        // how long the door stays open
+const int CLOSE_MS   = 150;
 // --------------------------------------------------------------- state
 float offsetX = 0, offsetY = 0;     // what "flat" reads, in degrees
 unsigned long lastTilt = 0;
@@ -138,7 +138,7 @@ void dropTrapdoor() {
   trap.write(STOP_VALUE);
   delay(HOLD_MS);
   trap.write(STOP_VALUE - SPEED);           // turn back: door closes
-  delay(OPEN_MS);
+  delay(CLOSE_MS);
   trap.write(STOP_VALUE);
   trap.detach();
   send("DROPPED");
